@@ -1,0 +1,13 @@
+{
+  "compactos": [
+    { "id": 1, "nome": "Fiat Mobi", "opcionais": ["Ar condicionado", "Vidros elétricos"], "valor": 80.0, "foto": "mobi.jpg" },
+    { "id": 2, "nome": "Renault Kwid", "opcionais": ["Ar condicionado"], "valor": 75.0, "foto": "kwid.jpg" }
+  ],
+  "suvs": [
+    { "id": 3, "nome": "Jeep Renegade", "opcionais": ["Ar condicionado", "Multimídia", "Direção elétrica"], "valor": 150.0, "foto": "renegade.jpg" },
+    { "id": 4, "nome": "Nissan Kicks", "opcionais": ["Ar condicionado", "Direção elétrica"], "valor": 140.0, "foto": "kicks.jpg" }
+  ],
+  "esportivos": [
+    { "id": 5, "nome": "Ford Mustang", "opcionais": ["Motor V8", "Câmbio automático", "Bancos de couro"], "valor": 350.0, "foto": "mustang.jpg" }
+  ]
+}
