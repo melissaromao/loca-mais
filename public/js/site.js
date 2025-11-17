@@ -74,7 +74,7 @@ async function renderCategoryPage(category) {
 
     const footer = document.createElement('div');
     footer.className = 'mt-auto';
-    footer.innerHTML = `<a href="/checkout.html?vehicle_id=${v.id}" class="btn btn-success w-100">Alugar</a>`;
+    footer.innerHTML = `<a href="/checkout.html?vehicle_id=${v.id}" class="btn btn-success w-100" data-vehicle="${v.nome}">Alugar</a>`;
 
     body.appendChild(footer);
 
