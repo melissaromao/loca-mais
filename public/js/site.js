@@ -65,12 +65,7 @@ async function renderCategoryPage(category) {
       body.appendChild(ops);
     }
 
-    // contêiner para recomendação inline
-    const reco = document.createElement('div');
-    reco.className = 'mt-2 ai-vehicle-reco';
-    reco.dataset.vehicleId = v.id;
-
-    body.appendChild(reco);
+    // contêiner de recomendação inline removido
 
     const footer = document.createElement('div');
     footer.className = 'mt-auto';
@@ -87,11 +82,7 @@ async function renderCategoryPage(category) {
   root.innerHTML = '';
   root.appendChild(row);
 
-  // chamar recomendador AI
-  if (window.AIRecommender) {
-    window.AIRecommender.showCategoryRecommendation(category);
-    window.AIRecommender.initInlineVehicleRecommendations();
-  }
+  // Recomendador IA removido
 }
 
 async function renderCheckoutPage(vehicleId) {
@@ -133,9 +124,7 @@ async function renderCheckoutPage(vehicleId) {
   const msgLocal = document.getElementById('mensagemLocal');
   if (msgLocal) msgLocal.innerHTML = '';
 
-  if (window.AIRecommender) {
-    window.AIRecommender.showCheckoutRecommendation(found.id);
-  }
+  // Recomendador IA removido
 }
 
 // inicializadores convenientes
