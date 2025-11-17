@@ -53,5 +53,78 @@ def checkout(veiculo_id):
     else:
         return "Veículo não encontrado", 404
 
+
+@app.route('/api/recommend', methods=['POST'])
+def api_recommend():
+    """Endpoint simples de recomendação baseado em regras.
+    Recebe JSON com uma das formas:
+      {"category": "suvs"}
+      {"vehicle_id": 3}
+    Retorna JSON com uma recomendação curta.
+    """
+    data = request.get_json() or {}
+
+    # Se recebeu categoria: recomenda um veículo (ex.: o mais barato)
+    if 'category' in data:
+        cat = data.get('category')
+        if cat in veiculos and len(veiculos[cat]) > 0:
+            # recomendação simples: veículo mais barato
+            recomendado = min(veiculos[cat], key=lambda v: v.get('valor', 0))
+            return {
+                'type': 'vehicle',
+                'vehicle_id': recomendado['id'],
+                'vehicle_name': recomendado['nome'],
+                'message': f"Recomendamos {recomendado['nome']} nesta categoria."
+            }
+        else:
+            return {'error': 'Categoria inválida ou sem veículos'}, 400
+
+    # Se recebeu vehicle_id: recomenda um extra/opcional
+    if 'vehicle_id' in data:
+        vid = int(data.get('vehicle_id'))
+        # encontrar veículo e categoria
+        encontrado = None
+        categoria = None
+        for cat_name, lista in veiculos.items():
+            for v in lista:
+                if v['id'] == vid:
+                    encontrado = v
+                    categoria = cat_name
+                    break
+            if encontrado:
+                break
+
+        if not encontrado:
+            return {'error': 'Veículo não encontrado'}, 404
+
+        # regras simples por categoria
+        if categoria == 'esportivos':
+            extra = {
+                'name': 'Seguro Premium (cobertura total)',
+                'description': 'Proteção extra indicada para veículos de alta potência.',
+                'price_per_day': 80.0
+            }
+        elif categoria == 'suvs':
+            extra = {
+                'name': 'GPS + Assento infantil',
+                'description': 'Roteamento e conforto para famílias.',
+                'price_per_day': 25.0
+            }
+        else:
+            extra = {
+                'name': 'Assento infantil',
+                'description': 'Recomendado para segurança de crianças.',
+                'price_per_day': 15.0
+            }
+
+        return {
+            'type': 'extra',
+            'vehicle_id': vid,
+            'extra': extra,
+            'message': f"Recomendação automática para {encontrado['nome']}: {extra['name']}"
+        }
+
+    return {'error': 'Parâmetros inválidos'}, 400
+
 if __name__ == '__main__':
     app.run(debug=True)
